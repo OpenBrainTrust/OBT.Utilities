@@ -124,12 +124,14 @@ public class KeyWordSearch {
     }
 
     /// <summary>
-    /// Gathers string fields from the submitted generic C# object.
+    /// Gets strings from an object. Returns them in an array.
     /// </summary>
-    /// <param name="dataObject">The object to scrub for string fields.</param>
-    /// <param name="returnArrayContents">Set to true to also pull any found string arrays or lists in the return.</param>
+    /// <param name="dataObject">An object to search for strings, or collections of strings, or subclasses with strings / collections of strings.</param>
+    /// <param name="returnArrayContents">Returns the string contents of arrays found in the object or its subclasses if true.</param>
+    /// <param name="returnClassContents">Returns the string contents of fields in subclasses if true.</param>
     /// <returns>An array of all of the strings found in the object, with declarations for the field name in question.</returns>
-    public string[] GetStringsFromObject( object dataObject, bool returnArrayContents = false ) {
+    [Button]
+    public string[] GetStringsFromObject( object dataObject, bool returnArrayContents = true, bool returnClassContents = true ) {
         Type type = dataObject.GetType();
         FieldInfo[] fields = type.GetFields();
         List<string> stringsFound = new List<string>();
@@ -150,6 +152,32 @@ public class KeyWordSearch {
                     List<string> stringArrayContents = (List<string>)fields[i].GetValue(dataObject);
                     stringsFound.Add("<" + fields[i].Name + "[" + stringArrayContents.Count + "]>");
                     stringsFound.AddRange(stringArrayContents);
+                }
+            }
+            if (returnClassContents) {
+                if (!fields[i].FieldType.IsClass) {
+                    Type subclassType = fields[i].FieldType;
+                    FieldInfo[] subclassFields = subclassType.GetFields();
+                    for (int j = 0; j < subclassFields.Length; j++) {
+                        if (subclassFields[j].FieldType == typeof(string)) {
+                            string stringValue = (string)subclassFields[j].GetValue(dataObject);
+                            if (!string.IsNullOrEmpty(stringValue)) {
+                                stringsFound.Add("<" + fields[i].Name + "." + subclassFields[j].Name + ">");
+                                stringsFound.Add(stringValue);
+                            }
+                        }
+                        if (returnArrayContents) {
+                            if (subclassFields[j].FieldType == typeof(string[])) {
+                                string[] stringArrayContents = (string[])subclassFields[j].GetValue(dataObject);
+                                stringsFound.Add("<" + fields[i].Name + "." + subclassFields[j].Name + "[" + stringArrayContents.Length + "]>");
+                                stringsFound.AddRange(stringArrayContents);
+                            } else if (subclassFields[j].FieldType == typeof(List<string>)) {
+                                List<string> stringArrayContents = (List<string>)subclassFields[j].GetValue(dataObject);
+                                stringsFound.Add("<" + fields[i].Name + "." + subclassFields[j].Name + "[" + stringArrayContents.Count + "]>");
+                                stringsFound.AddRange(stringArrayContents);
+                            }
+                        }
+                    }
                 }
             }
         }
