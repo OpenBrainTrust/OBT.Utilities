@@ -1,4 +1,3 @@
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class TerrainFromTexture2D : MonoBehaviour {
@@ -17,7 +16,6 @@ public class TerrainFromTexture2D : MonoBehaviour {
     /// <param name="_terrainObj">The Input Terrain GameObject, leave null to create a new GameObject with a Terrain ad hoc.</param>
     /// <param name="_texture">The Input Texture2D, in R 16-Bit format.</param>
     /// <returns>The target Terrain's GameObject.</returns>
-    [Button]
     public Terrain CreateTerrain(GameObject _terrainObj, Texture2D _texture ) {
         Debug.Log("CreateTerrain: " + _texture.height + "h x " + _texture.width + "w");
         //Create new TerrainData
