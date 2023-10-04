@@ -7,7 +7,11 @@ using UnityEngine;
 #endif
 
 /// <summary>
-/// Tool for mass keyword searching all strings in any class of object or type. 
+///  Tool for mass keyword searching all strings in any class of object or type. 
+///  KeywordSearch takes arrays of generic C# objects, searches for the desired input text, and returns any result records and their text as part of its outputs, ordered by the best match or incidence of partial matches to search words and phrases. 
+///  The input object arrays you want to search through can be of mixed types. KeywordSearch can return the strings from both class and array contents, but does not recursively search on its own beyond the first layer - you can however use its object returns themselves to conduct deeper searches.
+///  Uses System.Reflection, so be mindful of its accessibility when using it with sensitive embedded information. 
+///  Regardless, it will not return values that are compiled as private or similar.
 /// </summary>
 #if UNITY_STANDALONE || UNITY_EDITOR
 public class KeyWordSearch : MonoBehaviour {

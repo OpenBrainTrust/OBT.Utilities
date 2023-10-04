@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Creates Terrain GameObjects ad hoc, or applies Terrain heightmaps to existing Terrains, from a Texture2D. The input Texture2D must be in R16 Format.
+/// </summary>
 public class TerrainFromTexture2D : MonoBehaviour {
     [Header("Target Terrain")]
     public Terrain terrain;
