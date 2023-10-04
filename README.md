@@ -2,11 +2,11 @@
  Various Utilities in C#. As the repository grows, some of these may be filed away in other repositories. We have a backlog of scripts to post and will continue adding.
  
  For now, we have the following:
- [1. KeywordSearch]("https://github.com/OpenBrainTrust/OBT.Utilities#keywordsearch")
+ 1. [KeywordSearch]("#keywordsearch")
  
- [2. TextFormatter]("https://github.com/OpenBrainTrust/OBT.Utilities#textformatter")
+ 2. [TextFormatter]("#textformatter")
  
- [3. TerrainFromTexture2D]("https://github.com/OpenBrainTrust/OBT.Utilities#terrainfromtexture2d")
+ 3. [TerrainFromTexture2D]("#terrainfromtexture2d")
  
  ## KeywordSearch
  Tool for mass keyword searching all strings in any class of object or type. KeywordSearch takes arrays of generic C# objects, searches for the desired input text, and returns any result records and their text as part of its outputs, ordered by the best match or incidence of partial matches to search words and phrases. Can run either as MonoBehaviour or vanilla C# class.
